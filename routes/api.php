@@ -17,3 +17,11 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::post('/personas', [PersonaController::class, 'test']);
+
+
+Route::delete('/personas/{id}', [PersonaController::class, 'delete']);
+
+Route::put('/personas/{id}', [PersonaController::class, 'editar']);
