@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class PersonaController extends Controller
 {
-    public function crear(Request $request)
+    public function test(Request $request)
     {
         $request->validate([
             'nombre' => 'required|string',
@@ -25,4 +25,43 @@ class PersonaController extends Controller
         return response()->json('Persona creada!');
     }
     
+
+
+    public function delete($id)
+    {
+        $persona = Persona::find($id);
+        $persona->delete();
+    
+        return response()->json('Persona borrada!');
+    }
+    
+    public function editar(Request $request, $id)
+{
+    $request->editar([
+        'nombre' => 'required|string',
+        'apellido' => 'required|string',
+        'telefono' => 'required|string'
+    ]);
+
+    $persona = Persona::find($id);
+    $persona->update($request->all());
+
+    return response()->json('Persona editada!');
+}
+
+
+public function index()
+{
+    $personas = Persona::all();
+    return response()->json($personas);
+}
+
+
+public function buscar($nombre)
+{
+    $personas = Persona::where('nombre', 'like', '%' . $nombre . '%')->get();
+    return response()->json($personas);
+}
+
+
 }
